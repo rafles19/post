@@ -111,6 +111,7 @@ class PostController extends Controller
         $categories =  Category::all();
         return view('edit', compact('post', 'categories'));
         //test commit
+        //test commit 2
     }
 
     /**
