@@ -91,7 +91,7 @@ class PostController extends Controller
         $title->post_id = $post->id;
         $title->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -130,6 +130,8 @@ class PostController extends Controller
         $slug = Slug::findOrFail($id);
         $post = Post::findOrFail($id);
 
+        //dd($post->image);
+
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => ['required', 'max:2028', 'image'],
@@ -138,6 +140,7 @@ class PostController extends Controller
             // Hapus gambar lama jika ada
             if ($post->image) {
                 Storage::delete($post->image);
+                //dd($post->image);
             }
 
             $filename = time() . '_' . $request->image->getClientOriginalName();
@@ -161,7 +164,7 @@ class PostController extends Controller
             $slug->save();
         }
 
-        return redirect()->route('posts.index');
+        return redirect()->route('admin.posts.index');
     }
 
 
@@ -178,6 +181,6 @@ class PostController extends Controller
         $post->delete();
         //dd($post);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('admin.posts.index');
     }
 }

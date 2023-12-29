@@ -11,7 +11,7 @@
                             <h4>All Posts by {{ auth()->user()->name }}</h4>
                         </div>
                         <div class="col col-md-6 d-flex justify-content-end">
-                            <a class="btn btn-success" href="{{ route('posts.create') }}">Create</a>
+                            <a class="btn btn-success" href="{{ route('admin.posts.create') }}">Create</a>
                             <a class="btn btn-warning" href="">Trashed</a>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                                     <td>{{ $post->category->name }}</td>
                                     <td>{{ date('d-m-Y', strtotime($post->created_at)) }}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="{{ route('posts.edit', $post->id) }}">Edit</a>
-                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.posts.edit', $post->id) }}">Edit</a>
+                                        <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
                                             style="display: inline-block">
                                             @csrf
                                             @method('DELETE')

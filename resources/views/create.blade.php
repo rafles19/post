@@ -29,7 +29,7 @@
        
     
         <div class="card-body">
-            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form form-group">
                     <label for="" class="form form-label">Image</label>

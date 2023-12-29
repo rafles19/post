@@ -16,7 +16,7 @@
         </div>
     
         <div class="card-body">
-            <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form form-group">

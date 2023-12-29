@@ -35,7 +35,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
             // Jika berhasil, redirect ke home atau halaman yang diinginkan
-            return redirect()->route('posts.index');
+            return redirect()->route('admin.posts.index');
         }
 
         // Jika gagal, kembali ke halaman login dengan pesan error

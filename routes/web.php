@@ -22,8 +22,7 @@ use Illuminate\Auth\Events\Logout;
 
 Route::get('/', [HomepageController::class, 'index']);
 
-/* route sederhana untuk handling crud*/
-Route::resource('posts', PostController::class);
+
 
 /* route auth*/
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -34,3 +33,9 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 /* route free*/
 Route::get('/home', [HomepageController::class, 'homepageFree']);
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function(){
+    /* route sederhana untuk handling crud*/
+    Route::resource('posts', PostController::class);
+});
