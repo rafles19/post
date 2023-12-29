@@ -27,6 +27,22 @@ class PostController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keywords');
+
+        // Cari postingan dengan kata kunci
+        $posts = Post::where('keywords', 'like', "%$keyword%")->get();
+        //dd($posts);
+
+        // Arahkan kembali ke halaman utama
+        if (!auth()->check()) {
+            return view('homepage', compact('posts'));
+        } else {
+            return view('index', compact('posts'));
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -145,7 +161,7 @@ class PostController extends Controller
 
             $filename = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->image->storeAs('uploads', $filename);
-        
+
             $post->image = $filePath;
         }
 

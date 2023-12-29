@@ -39,3 +39,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     /* route sederhana untuk handling crud*/
     Route::resource('posts', PostController::class);
 });
+Route::get('/search', [PostController::class, 'search'])->name('posts.search');

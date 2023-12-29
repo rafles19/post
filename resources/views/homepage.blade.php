@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="main-content mt-5">
+        @if(isset($keyword))
+            <h2>Search Results for "{{ $keyword }}"</h2>
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <table class="table table-striped table-bordered border-dark">

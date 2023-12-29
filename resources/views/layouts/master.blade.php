@@ -37,10 +37,10 @@
                   </li>
                   
                 </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <form action="{{ route('posts.search') }}" method="GET">
+                  <input type="text" name="keywords" placeholder="Search...">
+                  <button type="submit">Search</button>
+              </form>
               </div>
             @endauth
 
