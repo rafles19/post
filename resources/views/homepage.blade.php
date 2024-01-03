@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="main-content mt-5">
-        {{-- @if(isset($keyword))
+        {{-- @if (isset($keyword))
             <h2>Hasil Pencarian untuk "{{ $keyword }}"</h2>
         @endif --}}
 
@@ -21,25 +21,43 @@
                             <p class="card-text">{{ $post->description }}</p>
                             <p><strong>Category:</strong> {{ $post->category->name }}</p>
                             <p><strong>Published Date:</strong> {{ date('d-m-Y', strtotime($post->created_at)) }}</p>
-                            
-                            <form action="{{ route('comments.store', $post->id) }}" method="post">
+
+
+                            <div class="form form-group">
+                                <label for="" class="form form-label">Description</label>
+                                <textarea type="text" name="description" id="" cols="30" rows="10" class="form form-control"></textarea>
+                            </div>
+
+                            {{-- <div form form-group>
+                                <label for="checkin">checkin</label>
+                                <input type="date" id="checkin" name="checkin">
+                                <label for="checkout">checkout:</label>
+                                <input type="date" id="checkout" name="checkout">
+                            </div> --}}
+
+
+                            <form method="post" action="{{ route('comments.store', ['postId' => $post->id]) }}">
                                 @csrf
-                                <div class="comment-section">
-                                    <input type="text" name="impression" class="form-control" placeholder="Your comment">
-                                    <button type="submit" class="btn btn-success">Comment</button>
-                                </div>
+                                <input type="text" name="impression" placeholder="Tambahkan komentar.">
+                                <button type="submit">impresi</button>
                             </form>
+
 
                             <div class="comments mt-3">
                                 <h6>Comments:</h6>
-                                @if ($comments)
-                                    @foreach ($comments as $comment)
-                                        <p>{{ $comment }}</p>
-                                    @endforeach
-                                @else
-                                    <p>No comments yet.</p>
-                                @endif
+                                @foreach ($post->impressions as $impression)
+                                    {{-- @php
+                                        dd($impression->user);
+                                    @endphp --}}
+                                    <li>{{ $impression->user->name }} - {{ $impression->impression }} -
+                                        {{ $impression->created_at->diffForHumans() }}</li>
+                                @endforeach
                             </div>
+
+
+
+                            <!-- Form untuk menambahkan komentar baru -->
+
                         </div>
                     </div>
                 </div>
