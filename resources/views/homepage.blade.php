@@ -11,6 +11,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
+                            <img src="{{ asset('storage/thumbnail/' . $post->thumbnail_image) }}" alt="{{ $post->title }}">
+
                             <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
                         </div>
                         <div class="col-md-6">

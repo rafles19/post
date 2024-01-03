@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/homepage', [App\Http\Controllers\HomeController::class, 'index'])->name('homepage');
-Route::middleware('role:admin')->resource('posts', PostController::class);
+Route::middleware('role:admin|user')->resource('posts', PostController::class);
 
 // Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function(){
 //     /* route sederhana untuk handling crud*/
@@ -30,5 +30,5 @@ Route::middleware('role:admin')->resource('posts', PostController::class);
 
 
 
-Route::post('/comments/{postId}', [HomeController::class, 'store'])->name('comments.store');
+//Route::post('/comments/{postId}', [HomeController::class, 'store'])->name('comments.store');
 

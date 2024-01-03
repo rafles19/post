@@ -34,15 +34,19 @@ class PostController extends Controller
 
         // Cari postingan dengan kata kunci
         $posts = Post::where('keywords', 'like', "%$keyword%")->get();
-        //dd($posts);
 
-        // Arahkan kembali ke halaman utama
-        if (!auth()->check()) {
-            return view('homepage', compact('posts'));
-        } else {
-            return view('index', compact('posts'));
+        // Dapatkan komentar untuk setiap postingan
+        $comments = [];
+
+        foreach ($posts as $post) {
+            $impressions = Impression::where('post_id', $post->id)->pluck('impression', 'user_id');
+            $comments[$post->id] = $impressions;
         }
+
+        // Arahkan kembali ke halaman utama dengan mengirimkan variabel $posts dan $comments
+        return view('homepage', compact('posts', 'comments'));
     }
+
 
 
     /**
@@ -69,18 +73,18 @@ class PostController extends Controller
 
         $filename = time() . '_' . $request->image->getClientOriginalName();
         $filePath = $request->image->storeAs('uploads', $filename);
-        //$image->scale(width: 300);
-        
-        //$filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
+        $filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
+
 
         $user = auth()->user();
-        
+
 
         $post = new Post();
         $post->title = $request->title;
         $post->description = $request->description;
         $post->category_id = $request->category_id;
         $post->image = $filePath;
+        $post->thumbnail_image = $filePathThumbnail;
         //$post->thumbnail_image = $filePathThumbnail;
         $post->slug = Str::slug($request->title);
         //$post->slug()->associate($slug);
@@ -117,12 +121,12 @@ class PostController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-{
-    $post = Post::findOrFail($id);
-    $impressions = Impression::where('post_id', $id)->get();
+    {
+        // $post = Post::findOrFail($id);
+        // $impressions = Impression::where('post_id', $id)->get();
 
-    return view('show', compact('post', 'impressions'));
-}
+        // return view('show', compact('post', 'impressions'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -168,8 +172,11 @@ class PostController extends Controller
 
             $filename = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->image->storeAs('uploads', $filename);
+            $filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
+
 
             $post->image = $filePath;
+            $post->thumbnail_image = $filePathThumbnail;
         }
 
         $post->title = $request->title;
@@ -199,7 +206,11 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // Hapus file gambar 
-        Storage::delete($post->image);
+        Storage::delete([
+            $post->image,
+            $post->thumbnail_image,
+        ]);
+
 
         $post->delete();
         //dd($post);

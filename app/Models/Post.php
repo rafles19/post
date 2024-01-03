@@ -47,11 +47,8 @@ class Post extends Model
         return $this->hasOne(Title::class);
     }
 
-    public function impression()
+    public function impressions()
     {
-        return $this->hasMany(Impression::class);
+        return $this->hasMany(Impression::class, 'post_id');
     }
-    
-
-    
 }
