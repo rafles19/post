@@ -29,6 +29,11 @@
                                 </div>
 
                                 <div class="form form-group">
+                                    <label for="checkin" class="form form-label">how long?</label>
+                                    <input type="number" name="checkin" id="checkout">
+                                </div>
+
+                                <div class="form form-group">
                                     <label for="impression" class="form form-label">Tambahkan komentar</label>
                                     <input type="text" name="impression" id="impression" class="form form-control" placeholder="Tambahkan komentar">
                                 </div>
