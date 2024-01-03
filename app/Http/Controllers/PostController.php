@@ -69,7 +69,6 @@ class PostController extends Controller
 
         $filename = time() . '_' . $request->image->getClientOriginalName();
         $filePath = $request->image->storeAs('uploads', $filename);
-        $filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
         
 
         $user = auth()->user();
@@ -83,7 +82,7 @@ class PostController extends Controller
         $post->description = $request->description;
         $post->category_id = $request->category_id;
         $post->image = $filePath;
-        $post->thumbnail_image = $filePathThumbnail;
+        // $post->thumbnail_image = $filePathThumbnail;
         //$post->thumbnail_image = $filePathThumbnail;
         $post->slug = Str::slug($request->title);
         //$post->slug()->associate($slug);
@@ -175,11 +174,11 @@ class PostController extends Controller
 
             $filename = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->image->storeAs('uploads', $filename);
-            $filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
+            // $filePathThumbnail = $request->image->resize(150, 150)->storeAs('thumbnail', $filename);
             
 
             $post->image = $filePath;
-            $post->thumbnail_image = $filePathThumbnail;
+            // $post->thumbnail_image = $filePathThumbnail;
         }
 
         $post->title = $request->title;
@@ -211,7 +210,6 @@ class PostController extends Controller
         // Hapus file gambar 
         Storage::delete([
             $post->image,
-            $post->thumbnail_image,
         ]);
     
 

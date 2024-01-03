@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->text('image');
+            $table->string('image')->nullable()->default(null);
             $table->string('title');
             $table->string('title_id')->nullable();
             $table->string('title_ch')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('description_id')->nullable();
             $table->string('description_ch')->nullable();
             $table->string('thumbnail_image')->nullable();
-            $table->integer('category_id');
+            $table->integer('category_id')->nullable()->default(null);
             $table->string('impression')->nullable();
             $table->string('impression_id')->nullable();
             $table->string('impression_ch')->nullable();
