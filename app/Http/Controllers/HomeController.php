@@ -15,21 +15,20 @@ class HomeController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
+
+        // Inisialisasi array untuk menampung komentar
+        $comments = [];
 
         foreach ($posts as $post) {
-            // Mengambil semua kolom post dan hasil komentar (impression) yang sesuai
-            $postWithComments = Post::select('id', 'title', 'description', 'category_id', 'image', 'thumbnail_image', 'slug', 'lead', 'user_id', 'author', 'keywords')
-                ->with(['impressions' => function ($query) use ($post) {
-                    $query->select('user_id', 'impression')->where('post_id', $post->id);
-                }])
-                ->find($post->id);
+            // Mengambil hanya kolom 'impression' dari hasil query
+            $impressions = Impression::where('post_id', $post->id)->pluck('impression');
 
-            // Mengganti $comments[$post->id] dengan $postWithComments->impressions
-            $comments[] = $postWithComments;
+            // Menambahkan hasil ke array comments
+            $comments[$post->id] = $impressions;
         }
 
-        return view('homepage', compact('comments'));
+        return view('homepage', compact('posts', 'comments'));
     }
 
     public function store(Request $request, $postId)
