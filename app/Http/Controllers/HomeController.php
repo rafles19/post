@@ -52,8 +52,8 @@ class HomeController extends Controller
 
     
     // Menyimpan komentar ke post yang sesuai melalui relasi
-    $post = Post::find($postId);
-    $post->impressions()->save($comment);
+    // $post = Post::find($postId);
+    // $post->impressions()->save($comment);
     
     
     
