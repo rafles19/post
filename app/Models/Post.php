@@ -18,10 +18,8 @@ class Post extends Model
         'lead',
         'author',
         'keywords',
-        'thumbnail_image',
-        'published_date',
+        'published_at',
         'user_id',
-        'impression'
     ];
 
     public function user()

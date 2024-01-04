@@ -70,6 +70,7 @@ class HomeController extends Controller
         // $post->lead = Str::before($request->description, ' ');
         $post->user_id = $user->id;
         $post->author = $user->name;
+        $post->published_at = now();
         // $post->keywords = $request->keywords;
         //$post->published_date = $post->created_at;
         $post->save();

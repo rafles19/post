@@ -10,15 +10,12 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="row">
-                      
                         <div class="col-md-6">
                             <p><strong>Published Date:</strong> {{ date('d-m-Y', strtotime($post->created_at)) }}</p>
                             <h5 class="card-title">{{ $post->title }}</h5>
                             <p><strong>Author:</strong> {{ $post->user->name }}</p>
                             <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
                             <p class="card-text">{{ $post->description }}</p>
-                            {{-- <p><strong>Category:</strong> {{ $post->category->name }}</p> --}}
-                            
 
                             <!-- Form untuk menambahkan komentar baru -->
                             <form method="post" action="{{ route('comments.store', ['postId' => $post->id]) }}">
@@ -29,8 +26,13 @@
                                 </div>
 
                                 <div class="form form-group">
-                                    <label for="checkin" class="form form-label">how long?</label>
-                                    <input type="number" name="checkin" id="checkout">
+                                    <label for="days" class="form form-label">Durasi Menginap (malam)</label>
+                                    <input type="number" name="days" id="days" min="1" placeholder="Jumlah malam">
+                                </div>
+
+                                <div class="form form-group">
+                                    <label for="start" class="form form-label">Bulan dan Tahun Mulai</label>
+                                    <input type="month" id="start" name="start" min="2018-03" value="2018-05" />
                                 </div>
 
                                 <div class="form form-group">

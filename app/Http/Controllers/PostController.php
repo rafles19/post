@@ -188,6 +188,8 @@ class PostController extends Controller
         $post->lead = Str::before($request->description, ' ');
         $post->keywords = $request->keywords;
         $post->author = auth()->user()->name;
+        $post->published_at = now();
+        // $post->published_dat = now();
         $post->save();
 
         // Update slug jika title berubah
@@ -212,8 +214,9 @@ class PostController extends Controller
             $post->image,
         ]);
     
-
+        $post->impressions()->delete();
         $post->delete();
+        
         //dd($post);
 
         return redirect()->route('posts.index');
